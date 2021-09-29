@@ -30,6 +30,9 @@ services:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_DB: ${PG_DB_NAME}
+      TZ: 'America/Sao_Paulo'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     networks:
       - portal-network
 
@@ -37,3 +40,7 @@ services:
 networks:
   portal-network:
     driver: bridge
+
+volumes:
+  pgdata:
+    driver: local
