@@ -21,13 +21,13 @@ export default class Company extends BaseModel {
   @column()
   public description: string;
 
-  @column()
+  @column({ serializeAs: null })
   public managerId: number;
 
   @belongsTo(() => User, { localKey: 'id', foreignKey: 'managerId' })
   public manager: BelongsTo<typeof User>;
 
-  @column()
+  @column({ serializeAs: null })
   public profilePictureId: number;
 
   @hasOne(() => ProfilePicture, {
