@@ -19,6 +19,7 @@
     "no-param-reassign": [
       "error",
       { "props": true, "ignorePropertyModificationsFor": ["user"] }
-    ]
+    ],
+    "import/prefer-default-export": "off"
   }
 }
