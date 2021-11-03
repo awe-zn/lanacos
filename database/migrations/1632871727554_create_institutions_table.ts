@@ -6,7 +6,7 @@ export default class Institutions extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
-      table.string('name', 64).notNullable();
+      table.string('name', 128).notNullable();
       table.timestamps(true, true);
     });
   }
