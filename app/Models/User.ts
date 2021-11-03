@@ -3,12 +3,15 @@ import {
   BaseModel,
   beforeSave,
   column,
+  HasMany,
+  hasMany,
   HasOne,
   hasOne,
 } from '@ioc:Adonis/Lucid/Orm';
 import Hash from '@ioc:Adonis/Core/Hash';
 import ProfilePicture from './ProfilePicture';
 import Resume from './Resume';
+import Company from './Company';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -42,6 +45,9 @@ export default class User extends BaseModel {
   @hasOne(() => Resume, { foreignKey: 'userId' })
   public resume: HasOne<typeof Resume>;
 
+  @hasMany(() => Company, { foreignKey: 'managerId' })
+  public company: HasMany<typeof Company>;
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
@@ -53,5 +59,9 @@ export default class User extends BaseModel {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password);
     }
+  }
+
+  public hasCompany() {
+    return !!this.company.length;
   }
 }
