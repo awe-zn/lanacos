@@ -26,3 +26,7 @@ Route.group(() => {
   Route.post('/', 'SessionsController.store');
   Route.delete('/', 'SessionsController.destroy').middleware('auth');
 }).prefix('session');
+
+Route.group(() => {
+  Route.post('/', 'UsersController.store');
+}).prefix('users');

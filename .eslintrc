@@ -18,8 +18,10 @@
     "import/no-cycle": "off",
     "no-param-reassign": [
       "error",
-      { "props": true, "ignorePropertyModificationsFor": ["user"] }
+      { "props": true, "ignorePropertyModificationsFor": ["user", "auth"] }
     ],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off"
   }
 }
