@@ -1,9 +1,6 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator';
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
 export class NewUserValidator {
-  constructor(protected ctx: HttpContextContract) {}
-
   public schema = schema.create({
     username: schema.string({ trim: true }, [
       rules.maxLength(16),
