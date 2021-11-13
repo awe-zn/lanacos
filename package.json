@@ -41,6 +41,7 @@
     "@adonisjs/mail": "^7.2.4",
     "@adonisjs/repl": "^3.1.0",
     "@adonisjs/view": "^6.1.1",
+    "cpf-cnpj-validator": "^1.0.3",
     "faker": "^5.5.3",
     "faker-br": "^0.4.1",
     "luxon": "^2.0.2",
