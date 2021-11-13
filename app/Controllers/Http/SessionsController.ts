@@ -8,11 +8,10 @@ export default class SessionsController {
   public async store({ request, auth, response }: HttpContextContract) {
     const { email, password } = await request.validate(LoginValidator);
 
-    const user = await User.query().where('email', email).firstOrFail();
+    const user = await User.findByOrFail('email', email);
     if (!(await Hash.verify(user.password, password))) {
       return response.badRequest({ errors: 'Invalid credentials' });
     }
-
     const token = await auth
       .use('api')
       .generate(user, { expiresIn: '7days', name: 'Login via API' });
