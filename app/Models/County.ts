@@ -13,7 +13,7 @@ export default class County extends BaseModel {
   @column()
   public name: string;
 
-  @column()
+  @column({ serializeAs: null })
   public stateCode: number;
 
   @belongsTo(() => State, { foreignKey: 'stateCode', localKey: 'code' })
