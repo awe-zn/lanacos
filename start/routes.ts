@@ -30,10 +30,6 @@ Route.group(() => {
   });
 }).middleware(['auth', 'emailVerified']);
 
-Route.get('/test', ({ response }) =>
-  response.ok({ message: 'success' })
-).middleware(['auth', 'emailVerified']);
-
 Route.any('*', ({ response }) =>
   response.notFound({ errors: [{ message: 'Route not found' }] })
 );
