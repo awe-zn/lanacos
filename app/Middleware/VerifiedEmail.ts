@@ -7,11 +7,10 @@ export default class VerifiedEmail {
   ) {
     const { emailConfirmed } = auth.user!;
 
-    if (!emailConfirmed) {
+    if (!emailConfirmed)
       return response.unauthorized({
         errors: [{ message: 'Email not confirmed' }],
       });
-    }
 
     return next();
   }
