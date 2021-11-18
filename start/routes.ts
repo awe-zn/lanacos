@@ -55,6 +55,10 @@ Route.group(() => {
         Route.put('/:id', 'AcademicExperiencesController.update')
           .where('id', matcherId)
           .middleware(['bodyNotEmpty']);
+        Route.delete('/:id', 'AcademicExperiencesController.destroy').where(
+          'id',
+          matcherId
+        );
       }).prefix('/academic');
     }).middleware(['hasResume']);
   }).prefix('/resume');
