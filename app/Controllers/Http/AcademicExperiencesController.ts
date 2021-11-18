@@ -5,14 +5,25 @@ import NewAcademicExperienceValidator from 'App/Validators/NewAcademicExperience
 import UpdateAcademicExperienceValidator from 'App/Validators/UpdateAcademicExperienceValidator';
 
 export default class AcademicExperiencesController {
-  public async index({ response, auth }: HttpContextContract) {
+  public async index({ response, auth, request }: HttpContextContract) {
     const user = auth.user!;
     await user.load('resume');
+
+    const certificates = !!Number(request.qs().certificates);
 
     const academicExperiences = await AcademicExperience.query().where(
       'resumeId',
       user.resume.id
     );
+
+    for (const academicExperience of academicExperiences) {
+      if (certificates) {
+        await academicExperience.load('certificate');
+
+        if (academicExperience.certificate)
+          await academicExperience.certificate.getUrl();
+      }
+    }
 
     return response.ok({ academic_experiences: academicExperiences });
   }
@@ -31,17 +42,18 @@ export default class AcademicExperiencesController {
     });
 
     await academicExperience.load('academicLevel');
-    await academicExperience.load('certificate');
     await academicExperience.load('institution');
 
     return response.ok({ academic_experience: academicExperience });
   }
 
-  public async show({ auth, response, params }: HttpContextContract) {
+  public async show({ auth, response, params, request }: HttpContextContract) {
     const { id } = params;
 
     const user = auth.user!;
     await user.load('resume');
+
+    const certificates = !!Number(request.qs().certificates);
 
     const academicExperience = await AcademicExperience.find(id);
 
@@ -58,6 +70,13 @@ export default class AcademicExperiencesController {
           },
         ],
       });
+
+    if (certificates) {
+      await academicExperience.load('certificate');
+
+      if (academicExperience.certificate)
+        await academicExperience.certificate.getUrl();
+    }
 
     return response.ok({ academic_experience: academicExperience });
   }
@@ -111,6 +130,13 @@ export default class AcademicExperiencesController {
 
     academicExperience.merge({ ...updateAcademicExperienceData });
     await academicExperience.save();
+
+    await academicExperience.load('academicLevel');
+    await academicExperience.load('institution');
+    await academicExperience.load('certificate');
+
+    if (academicExperience.certificate)
+      await academicExperience.certificate.getUrl();
 
     return response.ok({ academic_experience: academicExperience });
   }

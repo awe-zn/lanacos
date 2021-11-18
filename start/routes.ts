@@ -67,6 +67,21 @@ Route.group(() => {
           'id',
           matcherId
         );
+
+        Route.group(() => {
+          Route.get('/:id', 'CertificatesController.show').where(
+            'id',
+            matcherId
+          );
+          Route.post('/:id', 'CertificatesController.store').where(
+            'id',
+            matcherId
+          );
+          Route.put('/:id', 'CertificatesController.update').where(
+            'id',
+            matcherId
+          );
+        }).prefix('/certificate');
       }).prefix('/academic');
     }).middleware(['hasResume']);
   }).prefix('/resume');
