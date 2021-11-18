@@ -6,7 +6,7 @@ export default class UpdateProfessionalExperienceValidator {
 
   public schema = schema.create({
     startDate: schema.date.optional(),
-    endDate: schema.date.optional({}, [rules.afterField('startDate')]),
+    endDate: schema.date.optional(),
     workplace: schema.string.optional({ trim: true }),
     occupationId: schema.number.optional([
       rules.exists({ table: 'occupations', column: 'id' }),
