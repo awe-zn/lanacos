@@ -12,11 +12,15 @@ export default class Companies extends BaseSchema {
         .integer('manager_id')
         .notNullable()
         .references('id')
-        .inTable('users');
+        .inTable('users')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       table
         .integer('profile_picture_id')
         .references('id')
-        .inTable('profiles_pictures');
+        .inTable('profiles_pictures')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       table.timestamps(true, true);
     });
   }

@@ -11,14 +11,18 @@ export default class ProfessionalExperiences extends BaseSchema {
       table.string('workplace', 64).notNullable();
       table
         .integer('occupation_id')
-        .notNullable()
+        .nullable()
         .references('id')
-        .inTable('occupations');
+        .inTable('occupations')
+        .onDelete('SET NULL')
+        .onUpdate('CASCADE');
       table
         .integer('resume_id')
         .notNullable()
         .references('id')
-        .inTable('resumes');
+        .inTable('resumes')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       table.timestamps(true, true);
     });
   }
