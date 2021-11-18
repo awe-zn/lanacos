@@ -9,8 +9,8 @@ import {
 } from '@ioc:Adonis/Lucid/Orm';
 import Institution from './Institution';
 import AcademicLevel from './AcademicLevel';
-import Certificate from './Certificate';
 import Resume from './Resume';
+import Certificate from './Certificate';
 
 export default class AcademicExperience extends BaseModel {
   @column({ isPrimary: true })
@@ -41,12 +41,9 @@ export default class AcademicExperience extends BaseModel {
   })
   public academicLevel: HasOne<typeof AcademicLevel>;
 
-  @column({ serializeAs: null })
-  public certificateId: number;
-
   @hasOne(() => Certificate, {
-    localKey: 'certificateId',
     foreignKey: 'id',
+    localKey: 'academicExperienceId',
   })
   public certificate: HasOne<typeof Certificate>;
 

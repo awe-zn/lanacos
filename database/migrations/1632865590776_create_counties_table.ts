@@ -12,7 +12,9 @@ export default class Counties extends BaseSchema {
         .integer('state_code')
         .notNullable()
         .references('code')
-        .inTable('states');
+        .inTable('states')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       table.timestamps(true, true);
     });
   }

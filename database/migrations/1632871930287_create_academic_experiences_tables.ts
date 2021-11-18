@@ -20,11 +20,6 @@ export default class AcademicExperiences extends BaseSchema {
         .references('id')
         .inTable('academic_levels');
       table
-        .integer('certificate_id')
-        .notNullable()
-        .references('id')
-        .inTable('certificates');
-      table
         .integer('resume_id')
         .notNullable()
         .references('id')
