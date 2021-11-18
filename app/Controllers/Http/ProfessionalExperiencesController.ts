@@ -33,6 +33,31 @@ export default class ProfessionalExperiencesController {
     return response.ok({ professional_experience: professionalExperience });
   }
 
+  public async show({ auth, params, response }: HttpContextContract) {
+    const { id } = params;
+
+    const user = auth.user!;
+    await user.load('resume');
+
+    const professionalExperience = await ProfessionalExperience.find(id);
+
+    if (!professionalExperience)
+      return response.notFound({
+        errors: [{ message: 'Professional experience not found' }],
+      });
+
+    if (professionalExperience.resumeId !== user.resume.id)
+      return response.unauthorized({
+        errors: [
+          {
+            message: 'User unauthorized to access this professional experience',
+          },
+        ],
+      });
+
+    return response.ok({ professional_experience: professionalExperience });
+  }
+
   public async update({
     auth,
     params,
