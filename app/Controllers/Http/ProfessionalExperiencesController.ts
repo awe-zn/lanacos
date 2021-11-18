@@ -43,14 +43,20 @@ export default class ProfessionalExperiencesController {
     const user = auth.user!;
     await user.load('resume');
 
-    const professionalExperience = await ProfessionalExperience.query()
-      .where('resumeId', user.resume.id)
-      .where('id', id)
-      .first();
+    const professionalExperience = await ProfessionalExperience.find(id);
 
     if (!professionalExperience)
       return response.notFound({
         errors: [{ message: 'Professional experience not found' }],
+      });
+
+    if (professionalExperience.resumeId !== user.resume.id)
+      return response.unauthorized({
+        errors: [
+          {
+            message: 'User unauthorized to access this professional experience',
+          },
+        ],
       });
 
     const updateProfessionalExperienceData = await request.validate(
@@ -69,18 +75,26 @@ export default class ProfessionalExperiencesController {
     const user = auth.user!;
     await user.load('resume');
 
-    const professionalExperience = await ProfessionalExperience.query()
-      .where('resumeId', user.resume.id)
-      .where('id', id)
-      .first();
+    const professionalExperience = await ProfessionalExperience.find(id);
 
     if (!professionalExperience)
       return response.notFound({
         errors: [{ message: 'Professional experience not found' }],
       });
 
+    if (professionalExperience.resumeId !== user.resume.id)
+      return response.unauthorized({
+        errors: [
+          {
+            message: 'User unauthorized to access this professional experience',
+          },
+        ],
+      });
+
     await professionalExperience!.delete();
 
-    return response.ok({ message: 'Professional experience with success' });
+    return response.ok({
+      message: 'Professional experience deleted with success',
+    });
   }
 }
