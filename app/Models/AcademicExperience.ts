@@ -19,11 +19,11 @@ export default class AcademicExperience extends BaseModel {
   @column()
   public name: string;
 
-  @column()
-  public startDate: Date;
+  @column.date()
+  public startDate: DateTime;
 
-  @column()
-  public endDate?: Date;
+  @column.date()
+  public endDate?: DateTime;
 
   @column({ serializeAs: null })
   public institutionId: number;
@@ -42,8 +42,8 @@ export default class AcademicExperience extends BaseModel {
   public academicLevel: HasOne<typeof AcademicLevel>;
 
   @hasOne(() => Certificate, {
-    foreignKey: 'id',
-    localKey: 'academicExperienceId',
+    foreignKey: 'academicExperienceId',
+    localKey: 'id',
   })
   public certificate: HasOne<typeof Certificate>;
 
