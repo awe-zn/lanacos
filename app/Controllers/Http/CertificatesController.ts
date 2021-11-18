@@ -150,4 +150,41 @@ export default class CertificatesController {
 
     return response.ok({ certificate });
   }
+
+  public async destroy({ params, auth, response }: HttpContextContract) {
+    const { id } = params;
+
+    const user = auth.user!;
+    await user.load('resume');
+
+    const academicExperience = await AcademicExperience.find(id);
+
+    if (!academicExperience)
+      return response.notFound({
+        errors: [{ message: 'Academic experience not found' }],
+      });
+
+    if (academicExperience.resumeId !== user.resume.id)
+      return response.unauthorized({
+        errors: [
+          {
+            message: 'User unauthorized to access this academic experience',
+          },
+        ],
+      });
+
+    const certificate = await Certificate.findBy('academicExperienceId', id);
+
+    if (!certificate)
+      return response.notFound({
+        errors: [{ message: 'Certificate not found' }],
+      });
+
+    await Drive.delete(certificate.path);
+    await certificate.delete();
+
+    return response.ok({
+      message: 'Certificate deleted with success',
+    });
+  }
 }

@@ -81,6 +81,10 @@ Route.group(() => {
             'id',
             matcherId
           );
+          Route.delete('/:id', 'CertificatesController.destroy').where(
+            'id',
+            matcherId
+          );
         }).prefix('/certificate');
       }).prefix('/academic');
     }).middleware(['hasResume']);
