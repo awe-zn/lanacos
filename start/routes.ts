@@ -101,6 +101,21 @@ Route.group(() => {
       .where('id', matcherId)
       .middleware(['admin']);
   }).prefix('/institutions');
+
+  Route.group(() => {
+    Route.get('/', 'AcademicLevelsController.index');
+    Route.get('/:id', 'AcademicLevelsController.show').where('id', matcherId);
+    Route.post('/', 'AcademicLevelsController.store').middleware([
+      'admin',
+      'bodyNotEmpty',
+    ]);
+    Route.put('/:id', 'AcademicLevelsController.update')
+      .where('id', matcherId)
+      .middleware(['admin', 'bodyNotEmpty']);
+    Route.delete('/:id', 'AcademicLevelsController.destroy')
+      .where('id', matcherId)
+      .middleware(['admin']);
+  }).prefix('/academic-levels');
 }).middleware(['auth', 'emailVerified']);
 
 Route.group(() => {
