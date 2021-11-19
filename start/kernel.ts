@@ -40,7 +40,8 @@ Server.middleware.register([() => import('@ioc:Adonis/Core/BodyParser')]);
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
-  emailVerified: () => import('App/Middleware/VerifiedEmail'),
+  emailVerified: () => import('App/Middleware/EmailVerified'),
   hasResume: () => import('App/Middleware/HasResume'),
   bodyNotEmpty: () => import('App/Middleware/BodyNotEmpty'),
+  admin: () => import('App/Middleware/Admin'),
 });
