@@ -124,6 +124,11 @@ Route.group(() => {
     Route.put('/:id', 'CompaniesController.update').middleware('bodyNotEmpty');
     Route.delete('/:id', 'CompaniesController.destroy');
   }).prefix('/companies');
+
+  Route.group(() => {
+    Route.get('/', 'OccupationsController.index');
+    Route.get('/:id', 'OccupationsController.show').where('id', matcherId);
+  }).prefix('/occupations');
 }).middleware(['auth', 'emailVerified']);
 
 Route.group(() => {
