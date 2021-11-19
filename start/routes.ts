@@ -116,6 +116,14 @@ Route.group(() => {
       .where('id', matcherId)
       .middleware(['admin']);
   }).prefix('/academic-levels');
+
+  Route.group(() => {
+    Route.get('/', 'CompaniesController.index');
+    Route.get('/:id', 'CompaniesController.show').where('id', matcherId);
+    Route.post('/', 'CompaniesController.store').middleware('bodyNotEmpty');
+    Route.put('/:id', 'CompaniesController.update').middleware('bodyNotEmpty');
+    Route.delete('/:id', 'CompaniesController.destroy');
+  }).prefix('/companies');
 }).middleware(['auth', 'emailVerified']);
 
 Route.group(() => {
