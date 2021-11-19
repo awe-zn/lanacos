@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
-export default class VerifiedEmail {
+export default class EmailVerified {
   public async handle(
     { auth, response }: HttpContextContract,
     next: () => Promise<void>
