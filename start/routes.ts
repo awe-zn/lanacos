@@ -24,29 +24,10 @@ Route.group(() => {
 
 Route.group(() => {
   Route.group(() => {
-    Route.get('/', 'ResumesController.index').middleware(['hasResume']);
-    Route.group(() => {
-      Route.post('/', 'ResumesController.store');
-      Route.put('/', 'ResumesController.update').middleware(['hasResume']);
-    }).middleware(['bodyNotEmpty']);
-
-    Route.group(() => {
-      Route.get('/', 'ProfessionalExperiencesController.index');
-      Route.group(() => {
-        Route.post('/', 'ProfessionalExperiencesController.store');
-        Route.put('/:id', 'ProfessionalExperiencesController.update').where(
-          'id',
-          { match: /^[0-9]+$/, cast: (id) => Number(id) }
-        );
-      }).middleware(['bodyNotEmpty']);
-      Route.delete('/:id', 'ProfessionalExperiencesController.destroy').where(
-        'id',
-        { match: /^[0-9]+$/, cast: (id) => Number(id) }
-      );
-    })
-      .prefix('/experiences')
-      .middleware(['hasResume']);
-  }).prefix('/resume');
+    Route.get('/resume', 'ResumesController.index');
+    Route.post('/resume', 'ResumesController.store');
+    Route.put('/resume', 'ResumesController.update');
+  });
 }).middleware(['auth', 'emailVerified']);
 
 Route.any('*', ({ response }) =>

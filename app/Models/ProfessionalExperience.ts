@@ -7,11 +7,11 @@ export default class ProfessionalExperience extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column.date()
-  public startDate: DateTime;
+  @column()
+  public startDate: Date;
 
-  @column.date()
-  public endDate?: DateTime;
+  @column()
+  public endDate?: Date;
 
   @column()
   public workplace: string;
