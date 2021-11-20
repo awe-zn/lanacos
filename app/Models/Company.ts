@@ -4,12 +4,15 @@ import {
   BelongsTo,
   belongsTo,
   column,
+  HasMany,
+  hasMany,
   HasOne,
   hasOne,
 } from '@ioc:Adonis/Lucid/Orm';
 
 import User from './User';
 import ProfilePicture from './ProfilePicture';
+import Job from './Job';
 
 export default class Company extends BaseModel {
   @column({ isPrimary: true })
@@ -36,6 +39,9 @@ export default class Company extends BaseModel {
     serializeAs: 'profile_picture',
   })
   public profilePicture: HasOne<typeof ProfilePicture>;
+
+  @hasMany(() => Job, { foreignKey: 'companyId', localKey: 'id' })
+  public jobs: HasMany<typeof Job>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
