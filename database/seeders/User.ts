@@ -8,6 +8,6 @@ export default class UserSeeder extends BaseSeeder {
   public async run() {
     await User.truncate(true);
 
-    await UserFactory.with('resume').with('companies').createMany(20);
+    await UserFactory.with('resume').with('company').createMany(20);
   }
 }

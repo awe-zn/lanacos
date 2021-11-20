@@ -17,5 +17,5 @@ export const UserFactory = Factory.define(User, () => {
   };
 })
   .relation('resume', () => ResumeFactory)
-  .relation('companies', () => CompanyFactory)
+  .relation('company', () => CompanyFactory)
   .build();
