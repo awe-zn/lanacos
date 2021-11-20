@@ -22,14 +22,6 @@ Route.group(() => {
   }).prefix('confirm');
 }).prefix('users');
 
-Route.group(() => {
-  Route.group(() => {
-    Route.get('/resume', 'ResumesController.index');
-    Route.post('/resume', 'ResumesController.store');
-    Route.put('/resume', 'ResumesController.update');
-  });
-}).middleware(['auth', 'emailVerified']);
-
 Route.get('/test', ({ response }) =>
   response.ok({ message: 'success' })
 ).middleware(['auth', 'emailVerified']);
