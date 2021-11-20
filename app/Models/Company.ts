@@ -24,11 +24,11 @@ export default class Company extends BaseModel {
   @column()
   public managerId: number;
 
-  @belongsTo(() => User, { localKey: 'id', foreignKey: 'managerId' })
-  public manager: BelongsTo<typeof User>;
-
   @column()
   public profilePictureId: number;
+
+  @belongsTo(() => User, { localKey: 'id', foreignKey: 'managerId' })
+  public manager: BelongsTo<typeof User>;
 
   @hasOne(() => ProfilePicture, {
     localKey: 'profilePictureId',

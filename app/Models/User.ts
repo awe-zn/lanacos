@@ -8,7 +8,6 @@ import {
 } from '@ioc:Adonis/Lucid/Orm';
 import Hash from '@ioc:Adonis/Core/Hash';
 import ProfilePicture from './ProfilePicture';
-import Resume from './Resume';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -29,7 +28,7 @@ export default class User extends BaseModel {
   @column()
   public admin: boolean;
 
-  @column({ serializeAs: null })
+  @column()
   public profilePictureId: number;
 
   @hasOne(() => ProfilePicture, {
@@ -38,9 +37,6 @@ export default class User extends BaseModel {
     serializeAs: 'profile_picture',
   })
   public profilePicture: HasOne<typeof ProfilePicture>;
-
-  @hasOne(() => Resume, { foreignKey: 'userId' })
-  public resume: HasOne<typeof Resume>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
