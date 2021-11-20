@@ -35,10 +35,6 @@ Route.group(() => {
     Route.group(() => {
       Route.group(() => {
         Route.get('/', 'ProfessionalExperiencesController.index');
-        Route.get('/:id', 'ProfessionalExperiencesController.show').where(
-          'id',
-          matcherId
-        );
         Route.delete('/:id', 'ProfessionalExperiencesController.destroy').where(
           'id',
           matcherId
@@ -53,10 +49,6 @@ Route.group(() => {
 
       Route.group(() => {
         Route.get('/', 'AcademicExperiencesController.index');
-        Route.get('/:id', 'AcademicExperiencesController.show').where(
-          'id',
-          matcherId
-        );
         Route.post('/', 'AcademicExperiencesController.store').middleware([
           'bodyNotEmpty',
         ]);

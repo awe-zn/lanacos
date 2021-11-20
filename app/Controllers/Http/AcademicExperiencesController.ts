@@ -37,31 +37,6 @@ export default class AcademicExperiencesController {
     return response.ok({ academic_experience: academicExperience });
   }
 
-  public async show({ auth, response, params }: HttpContextContract) {
-    const { id } = params;
-
-    const user = auth.user!;
-    await user.load('resume');
-
-    const academicExperience = await AcademicExperience.find(id);
-
-    if (!academicExperience)
-      return response.notFound({
-        errors: [{ message: 'Academic experience not found' }],
-      });
-
-    if (academicExperience.resumeId !== user.resume.id)
-      return response.unauthorized({
-        errors: [
-          {
-            message: 'User unauthorized to access this academic experience',
-          },
-        ],
-      });
-
-    return response.ok({ academic_experience: academicExperience });
-  }
-
   public async update({
     auth,
     params,
