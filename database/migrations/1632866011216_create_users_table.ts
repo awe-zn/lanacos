@@ -17,7 +17,7 @@ export default class Users extends BaseSchema {
         .integer('profile_picture_id')
         .references('id')
         .inTable('profiles_pictures')
-        .onDelete('SET NULL')
+        .onDelete('CASCADE')
         .onUpdate('CASCADE');
       table.timestamps(true, true);
     });
