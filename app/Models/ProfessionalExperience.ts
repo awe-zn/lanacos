@@ -16,13 +16,13 @@ export default class ProfessionalExperience extends BaseModel {
   @column()
   public workplace: string;
 
-  @column({ serializeAs: null })
+  @column()
   public occupationId: number;
 
   @belongsTo(() => Occupation, { localKey: 'id', foreignKey: 'occupationId' })
   public occupation: BelongsTo<typeof Occupation>;
 
-  @column({ serializeAs: null })
+  @column()
   public resumeId: number;
 
   @belongsTo(() => Resume, { localKey: 'id', foreignKey: 'resumeId' })

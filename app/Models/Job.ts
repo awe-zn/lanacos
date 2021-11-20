@@ -10,7 +10,7 @@ export default class Job extends BaseModel {
   @column()
   public minimumWageClaim: number;
 
-  @column({ serializeAs: null })
+  @column()
   public companyId: number;
 
   @belongsTo(() => Company, {

@@ -25,13 +25,13 @@ export default class AcademicExperience extends BaseModel {
   @column()
   public endDate?: Date;
 
-  @column({ serializeAs: null })
+  @column()
   public institutionId: number;
 
   @belongsTo(() => Institution, { localKey: 'id', foreignKey: 'institutionId' })
   public institution: BelongsTo<typeof Institution>;
 
-  @column({ serializeAs: null })
+  @column()
   public academicLevelId: number;
 
   @hasOne(() => AcademicLevel, {
@@ -41,7 +41,7 @@ export default class AcademicExperience extends BaseModel {
   })
   public academicLevel: HasOne<typeof AcademicLevel>;
 
-  @column({ serializeAs: null })
+  @column()
   public certificateId: number;
 
   @hasOne(() => Certificate, {
@@ -50,7 +50,7 @@ export default class AcademicExperience extends BaseModel {
   })
   public certificate: HasOne<typeof Certificate>;
 
-  @column({ serializeAs: null })
+  @column()
   public resumeId: number;
 
   @belongsTo(() => Resume, { localKey: 'id', foreignKey: 'resumeId' })
