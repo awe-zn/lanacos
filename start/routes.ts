@@ -1,5 +1,4 @@
 import Route from '@ioc:Adonis/Core/Route';
-import { matcherId } from 'Contracts/matcher';
 
 Route.get('/', async () => ({ hello: 'world' }));
 
@@ -26,37 +25,27 @@ Route.group(() => {
 Route.group(() => {
   Route.group(() => {
     Route.get('/', 'ResumesController.index').middleware(['hasResume']);
-
     Route.group(() => {
       Route.post('/', 'ResumesController.store');
       Route.put('/', 'ResumesController.update').middleware(['hasResume']);
     }).middleware(['bodyNotEmpty']);
 
     Route.group(() => {
+      Route.get('/', 'ProfessionalExperiencesController.index');
       Route.group(() => {
-        Route.get('/', 'ProfessionalExperiencesController.index');
-        Route.delete('/:id', 'ProfessionalExperiencesController.destroy').where(
+        Route.post('/', 'ProfessionalExperiencesController.store');
+        Route.put('/:id', 'ProfessionalExperiencesController.update').where(
           'id',
-          matcherId
+          { match: /^[0-9]+$/, cast: (id) => Number(id) }
         );
-        Route.post('/', 'ProfessionalExperiencesController.store').middleware([
-          'bodyNotEmpty',
-        ]);
-        Route.put('/:id', 'ProfessionalExperiencesController.update')
-          .where('id', matcherId)
-          .middleware(['bodyNotEmpty']);
-      }).prefix('/experiences');
-
-      Route.group(() => {
-        Route.get('/', 'AcademicExperiencesController.index');
-        Route.post('/', 'AcademicExperiencesController.store').middleware([
-          'bodyNotEmpty',
-        ]);
-        Route.put('/:id', 'AcademicExperiencesController.update')
-          .where('id', matcherId)
-          .middleware(['bodyNotEmpty']);
-      }).prefix('/academic');
-    }).middleware(['hasResume']);
+      }).middleware(['bodyNotEmpty']);
+      Route.delete('/:id', 'ProfessionalExperiencesController.destroy').where(
+        'id',
+        { match: /^[0-9]+$/, cast: (id) => Number(id) }
+      );
+    })
+      .prefix('/experiences')
+      .middleware(['hasResume']);
   }).prefix('/resume');
 }).middleware(['auth', 'emailVerified']);
 
