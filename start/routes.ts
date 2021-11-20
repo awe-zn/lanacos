@@ -26,11 +26,11 @@ Route.group(() => {
 Route.group(() => {
   Route.group(() => {
     Route.get('/', 'ResumesController.index').middleware(['hasResume']);
-    Route.post('/', 'ResumesController.store').middleware(['bodyNotEmpty']);
-    Route.put('/', 'ResumesController.update').middleware([
-      'hasResume',
-      'bodyNotEmpty',
-    ]);
+
+    Route.group(() => {
+      Route.post('/', 'ResumesController.store');
+      Route.put('/', 'ResumesController.update').middleware(['hasResume']);
+    }).middleware(['bodyNotEmpty']);
 
     Route.group(() => {
       Route.group(() => {
@@ -89,29 +89,7 @@ Route.group(() => {
       }).prefix('/academic');
     }).middleware(['hasResume']);
   }).prefix('/resume');
-
-  Route.group(() => {
-    Route.get('/', 'InstitutionsController.index');
-    Route.get('/:id', 'InstitutionsController.show').where('id', matcherId);
-    Route.post('/', 'InstitutionsController.store').middleware('bodyNotEmpty');
-    Route.put('/:id', 'InstitutionsController.update')
-      .where('id', matcherId)
-      .middleware(['admin', 'bodyNotEmpty']);
-    Route.delete('/:id', 'InstitutionsController.destroy')
-      .where('id', matcherId)
-      .middleware(['admin']);
-  }).prefix('/institutions');
 }).middleware(['auth', 'emailVerified']);
-
-Route.group(() => {
-  Route.get('/', 'CountiesController.index');
-  Route.get('/:id', 'CountiesController.show').where('id', matcherId);
-}).prefix('/counties');
-
-Route.group(() => {
-  Route.get('/', 'StatesController.index');
-  Route.get('/:id', 'StatesController.show').where('id', matcherId);
-}).prefix('/states');
 
 Route.any('*', ({ response }) =>
   response.notFound({ errors: [{ message: 'Route not found' }] })
