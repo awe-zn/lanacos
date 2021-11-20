@@ -7,8 +7,8 @@ services:
       - 80:80
     volumes:
       - .docker/development/nginx/conf.d/:/etc/nginx/conf.d/
-      - .docker/certbot/www:/var/www/certbot/
-      - .docker/certbot/conf/:/etc/nginx/ssl/
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
     depends_on:
       - app
     networks:
@@ -17,3 +17,7 @@ services:
 networks:
   portal-network:
     driver: bridge
+
+volumes:
+  certbot-etc:
+  certbot-var:
