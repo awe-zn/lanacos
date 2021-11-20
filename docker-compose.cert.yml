@@ -8,4 +8,4 @@ services:
       - .docker/certbot/conf/:/etc/letsencrypt/
     depends_on:
       - web
-    entrypoint: certbot certonly --webroot --webroot-path=/var/www/certbot/ -m contato@danielsouza.dev.br -d lanacos.danielsouza.dev.br -d www.lanacos.danielsouza.dev.br
+    entrypoint: certbot certonly --webroot --webroot-path /var/www/certbot/ -d lanacos.danielsouza.dev.br
