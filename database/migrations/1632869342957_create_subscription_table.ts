@@ -6,13 +6,7 @@ export default class Subscriptions extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
-      table
-        .integer('job_id')
-        .notNullable()
-        .references('id')
-        .inTable('jobs')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+      table.integer('job_id').notNullable().references('id').inTable('jobs');
       table
         .integer('resume_id')
         .notNullable()

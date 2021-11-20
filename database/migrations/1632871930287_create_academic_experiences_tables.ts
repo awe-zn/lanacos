@@ -13,23 +13,17 @@ export default class AcademicExperiences extends BaseSchema {
         .integer('institution_id')
         .notNullable()
         .references('id')
-        .inTable('institutions')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+        .inTable('institutions');
       table
         .integer('academic_level_id')
         .notNullable()
         .references('id')
-        .inTable('academic_levels')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+        .inTable('academic_levels');
       table
         .integer('resume_id')
         .notNullable()
         .references('id')
-        .inTable('resumes')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+        .inTable('resumes');
       table.timestamps(true, true);
     });
   }
