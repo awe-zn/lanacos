@@ -42,6 +42,7 @@ Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
   emailVerified: () => import('App/Middleware/EmailVerified'),
   hasResume: () => import('App/Middleware/HasResume'),
+  hasCompany: () => import('App/Middleware/HasCompany'),
   bodyNotEmpty: () => import('App/Middleware/BodyNotEmpty'),
   admin: () => import('App/Middleware/Admin'),
 });
