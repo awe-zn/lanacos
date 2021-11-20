@@ -15,7 +15,6 @@
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
     "@types/proxy-addr": "^2.0.0",
-    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "adonis-preset-ts": "^2.1.0",
@@ -48,8 +47,7 @@
     "phc-bcrypt": "^1.0.7",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
-    "source-map-support": "^0.5.20",
-    "uuid": "^8.3.2"
+    "source-map-support": "^0.5.20"
   },
   "config": {
     "commitizen": {
