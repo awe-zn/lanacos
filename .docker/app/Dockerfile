@@ -13,5 +13,3 @@ RUN chown -R node:node /home/node
 USER node
 
 EXPOSE 3333
-
-ENTRYPOINT yarn && yarn dev
