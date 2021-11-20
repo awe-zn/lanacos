@@ -70,10 +70,10 @@ export default class User extends BaseModel {
     }
 
     user.uuid = uuidv4();
+    user.emailConfirmed = false;
 
     if (user.$dirty.email) {
       await new NewUser(user).sendLater();
-      user.emailConfirmed = false;
     }
   }
 
