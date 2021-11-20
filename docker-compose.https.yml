@@ -8,6 +8,7 @@ services:
       - 443:443
     volumes:
       - .docker/production/nginx/conf.d/:/etc/nginx/conf.d/
+      - web-root:/var/www/html
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
     depends_on:
@@ -22,3 +23,9 @@ networks:
 volumes:
   certbot-etc:
   certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./resources/views/
+      o: bind

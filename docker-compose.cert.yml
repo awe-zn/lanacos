@@ -3,9 +3,11 @@ version: '3'
 services:
   certbot:
     image: certbot/certbot
+    container_name: certbot
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
     depends_on:
       - web
     entrypoint: certonly --webroot --webroot-path=/var/www/html --email contato@danielsouza.dev.br --agree-tos --no-eff-email --staging -d lanacos.danielsouza.dev.br  -d www.lanacos.danielsouza.dev.br
@@ -13,3 +15,9 @@ services:
 volumes:
   certbot-etc:
   certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ubuntu/repositories/lanacos/resources/views/
+      o: bind
