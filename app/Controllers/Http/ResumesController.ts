@@ -7,22 +7,21 @@ export default class ResumesController {
   public async index({ response, auth, request }: HttpContextContract) {
     const user = auth.user!;
 
-    const resume = (await Resume.findBy('userId', user.id))!;
+    const resume = await Resume.findBy('userId', user.id);
+
+    if (!resume)
+      return response.notFound({
+        errors: [{ message: 'User has no resume' }],
+      });
 
     const county = !!Number(request.qs().county);
     const state = !!Number(request.qs().state);
-    const professionalExperiences = !!Number(
-      request.qs().professional_experiences
-    );
-    const academicExperiences = !!Number(request.qs().academic_experiences);
 
     if (county) {
       await resume.load('county', (query) => {
         if (state) query.preload('state');
       });
     }
-    if (professionalExperiences) await resume.load('professionalExperiences');
-    if (academicExperiences) await resume.load('academicExperiences');
 
     return response.ok({ resume });
   }
