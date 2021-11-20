@@ -15,7 +15,6 @@ export default class ResumesController {
       request.qs().professional_experiences
     );
     const academicExperiences = !!Number(request.qs().academic_experiences);
-    const certificates = !!Number(request.qs().certificates);
 
     if (county) {
       await resume.load('county', (query) => {
@@ -23,16 +22,7 @@ export default class ResumesController {
       });
     }
     if (professionalExperiences) await resume.load('professionalExperiences');
-    if (academicExperiences) {
-      await resume.load('academicExperiences', async (query) => {
-        if (certificates) await query.preload('certificate');
-      });
-
-      for (const academicExperience of resume.academicExperiences) {
-        if (academicExperience.certificate)
-          await academicExperience.certificate.getUrl();
-      }
-    }
+    if (academicExperiences) await resume.load('academicExperiences');
 
     return response.ok({ resume });
   }
