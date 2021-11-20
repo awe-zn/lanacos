@@ -80,8 +80,4 @@ export default class User extends BaseModel {
   public hasCompany() {
     return !!this.company.length;
   }
-
-  public hasResume() {
-    return !!this.resume;
-  }
 }
