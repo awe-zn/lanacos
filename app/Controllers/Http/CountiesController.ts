@@ -5,7 +5,7 @@ export default class CountiesController {
   public async index({ response, request }: HttpContextContract) {
     const state = !!Number(request.qs().state);
 
-    const page = Number(request.qs().page) || 1;
+    const page = request.input('page', 1);
     const limit = 10;
 
     const counties = await County.query().paginate(page, limit);
