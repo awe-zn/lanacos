@@ -55,7 +55,7 @@ export default class User extends BaseModel {
   public resume: HasOne<typeof Resume>;
 
   @hasMany(() => Company, { foreignKey: 'managerId' })
-  public companies: HasMany<typeof Company>;
+  public company: HasMany<typeof Company>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
@@ -78,7 +78,7 @@ export default class User extends BaseModel {
   }
 
   public hasCompany() {
-    return !!this.companies.length;
+    return !!this.company.length;
   }
 
   public hasResume() {
