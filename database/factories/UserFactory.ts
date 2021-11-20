@@ -12,7 +12,7 @@ export const UserFactory = Factory.define(User, () => {
   return {
     username: Faker.internet.userName(firstName, lastName).slice(0, 16),
     fullname: `${firstName} ${Faker.name.middleName()} ${lastName}`,
-    password: 'password',
+    password: Faker.internet.password(),
     email: Faker.internet.email(firstName, lastName),
   };
 })

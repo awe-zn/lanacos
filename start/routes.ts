@@ -21,8 +21,3 @@
 import Route from '@ioc:Adonis/Core/Route';
 
 Route.get('/', async () => ({ hello: 'world' }));
-
-Route.group(() => {
-  Route.post('/', 'SessionsController.store');
-  Route.delete('/', 'SessionsController.destroy').middleware('auth');
-}).prefix('session');
