@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
     tty: true
     working_dir: /home/node/app
     volumes:
