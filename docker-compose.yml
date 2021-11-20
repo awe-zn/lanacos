@@ -1,27 +1,6 @@
 version: '3'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    tty: true
-    working_dir: /home/node/app
-    volumes:
-      - ./:/home/node/app
-    networks:
-      - portal-network
-
-  web:
-    image: nginx:alpine
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - .docker/nginx/conf.d/:/etc/nginx/conf.d/
-    networks:
-      - portal-network
-
   db:
     image: postgres:alpine
     ports:
@@ -36,7 +15,6 @@ services:
     networks:
       - portal-network
 
-#Docker Networks
 networks:
   portal-network:
     driver: bridge
