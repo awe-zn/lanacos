@@ -7,13 +7,13 @@ export default class Subscription extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column({ serializeAs: null })
+  @column()
   public jobId: number;
 
   @belongsTo(() => Job)
   public job: BelongsTo<typeof Job>;
 
-  @column({ serializeAs: null })
+  @column()
   public resumeId: number;
 
   @belongsTo(() => Resume)
