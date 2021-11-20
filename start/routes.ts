@@ -13,7 +13,10 @@ Route.group(() => {
   Route.put('/', 'UsersController.update').middleware('auth');
 
   Route.group(() => {
-    Route.get('/request/:id', 'UsersController.requestConfirm');
+    Route.get('/request/:id', 'UsersController.requestConfirm').where(
+      'id',
+      matcherId
+    );
     Route.get('/:uuid', 'UsersController.confirm')
       .where('uuid', {
         match:
@@ -69,23 +72,13 @@ Route.group(() => {
         );
 
         Route.group(() => {
-          Route.get('/:id', 'CertificatesController.show').where(
-            'id',
-            matcherId
-          );
-          Route.post('/:id', 'CertificatesController.store').where(
-            'id',
-            matcherId
-          );
-          Route.put('/:id', 'CertificatesController.update').where(
-            'id',
-            matcherId
-          );
-          Route.delete('/:id', 'CertificatesController.destroy').where(
-            'id',
-            matcherId
-          );
-        }).prefix('/certificate');
+          Route.get('/', 'CertificatesController.show');
+          Route.post('/', 'CertificatesController.store');
+          Route.put('/', 'CertificatesController.update');
+          Route.delete('/', 'CertificatesController.destroy');
+        })
+          .prefix('/:id/certificate/')
+          .where('id', matcherId);
       }).prefix('/academic');
     }).middleware(['hasResume']);
   }).prefix('/resume');
@@ -121,21 +114,41 @@ Route.group(() => {
     Route.get('/', 'CompaniesController.index');
     Route.get('/:id', 'CompaniesController.show').where('id', matcherId);
     Route.post('/', 'CompaniesController.store').middleware('bodyNotEmpty');
-    Route.put('/:id', 'CompaniesController.update').middleware('bodyNotEmpty');
-    Route.delete('/:id', 'CompaniesController.destroy');
-  }).prefix('/companies');
+    Route.put('/:id', 'CompaniesController.update')
+      .where('id', matcherId)
+      .middleware('bodyNotEmpty');
+    Route.delete('/:id', 'CompaniesController.destroy').where('id', matcherId);
+  })
+    .prefix('/companies')
+    .middleware('hasCompany');
 
   Route.group(() => {
     Route.get('/', 'JobsController.index');
     Route.get('/:id', 'JobsController.show').where('id', matcherId);
-    Route.post('/', 'JobsController.store').middleware('bodyNotEmpty');
+    Route.post('/', 'JobsController.store').middleware([
+      'bodyNotEmpty',
+      'hasCompany',
+    ]);
     Route.put('/:id', 'JobsController.update')
-      .middleware('bodyNotEmpty')
+      .middleware(['bodyNotEmpty', 'hasCompany'])
       .where('id', matcherId);
-    Route.delete('/:id', 'JobsController.destroy').where('id', matcherId);
-  })
-    .prefix('/jobs')
-    .where('id', matcherId);
+    Route.delete('/:id', 'JobsController.destroy')
+      .where('id', matcherId)
+      .middleware(['hasCompany']);
+
+    Route.group(() => {
+      Route.get('/', 'SubscriptionsController.index').middleware([
+        'hasCompany',
+      ]);
+      Route.get('/:subId', 'SubscriptionsController.show')
+        .where('subId', matcherId)
+        .middleware(['hasCompany']);
+      Route.post('/', 'SubscriptionsController.store');
+      Route.delete('/', 'SubscriptionsController.destroy');
+    })
+      .prefix('/:jobId/subscriptions')
+      .where('jobId', matcherId);
+  }).prefix('/jobs');
 
   Route.group(() => {
     Route.get('/', 'OccupationsController.index');
