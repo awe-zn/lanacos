@@ -8,8 +8,6 @@ services:
       - 443:443
     volumes:
       - .docker/production/nginx/conf.d/:/etc/nginx/conf.d/
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
     depends_on:
       - app
     networks:
@@ -18,7 +16,3 @@ services:
 networks:
   portal-network:
     driver: bridge
-
-volumes:
-  certbot-etc:
-  certbot-var:
