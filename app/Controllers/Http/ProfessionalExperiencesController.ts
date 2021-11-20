@@ -1,5 +1,4 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { isSameDay } from 'date-fns';
 import ProfessionalExperience from 'App/Models/ProfessionalExperience';
 import NewProfessionalExperienceValidator from 'App/Validators/NewProfessionalExperienceValidator';
 import UpdateProfessionalExperienceValidator from 'App/Validators/UpdateProfessionalExperienceValidator';
@@ -64,26 +63,8 @@ export default class ProfessionalExperiencesController {
       UpdateProfessionalExperienceValidator
     );
 
-    if (updateProfessionalExperienceData.endDate) {
-      const startDate =
-        updateProfessionalExperienceData.startDate ||
-        professionalExperience.startDate;
-
-      const endDate =
-        updateProfessionalExperienceData.endDate ||
-        professionalExperience.endDate;
-
-      if (
-        isSameDay(endDate.valueOf(), startDate.valueOf()) ||
-        endDate < startDate
-      )
-        return response.badRequest({
-          errors: [{ message: 'Start date to end date interval invalid' }],
-        });
-    }
-
-    professionalExperience.merge({ ...updateProfessionalExperienceData });
-    await professionalExperience.save();
+    professionalExperience!.merge({ ...updateProfessionalExperienceData });
+    await professionalExperience!.save();
 
     return response.ok({ professional_experience: professionalExperience });
   }
@@ -110,7 +91,7 @@ export default class ProfessionalExperiencesController {
         ],
       });
 
-    await professionalExperience.delete();
+    await professionalExperience!.delete();
 
     return response.ok({
       message: 'Professional experience deleted with success',
