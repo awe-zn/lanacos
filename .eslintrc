@@ -15,10 +15,6 @@
     "prettier/prettier": ["error"],
     "class-methods-use-this": ["off"],
     "new-cap": ["error", { "newIsCapExceptions": ["default"] }],
-    "import/no-cycle": "off",
-    "no-param-reassign": [
-      "error",
-      { "props": true, "ignorePropertyModificationsFor": ["user"] }
-    ]
+    "import/no-cycle": "off"
   }
 }
