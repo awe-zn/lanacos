@@ -3,6 +3,7 @@ version: '3'
 services:
   db:
     image: postgres:alpine
+    restart: always
     ports:
       - ${PG_PORT}:${PG_PORT}
     environment:
