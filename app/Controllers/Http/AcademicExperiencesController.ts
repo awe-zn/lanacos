@@ -10,18 +10,26 @@ export default class AcademicExperiencesController {
     await user.load('resume');
 
     const certificates = !!Number(request.qs().certificates);
+    const academicLevel = !!Number(request.qs().academic_level);
+    const institution = !!Number(request.qs().institution);
 
     const academicExperiences = await AcademicExperience.query().where(
       'resumeId',
       user.resume.id
     );
 
-    for (const academicExperience of academicExperiences) {
-      if (certificates) {
-        await academicExperience.load('certificate');
+    if (certificates || academicLevel || institution) {
+      for (const academicExperience of academicExperiences) {
+        if (certificates) {
+          await academicExperience.load('certificate');
 
-        if (academicExperience.certificate)
-          await academicExperience.certificate.getUrl();
+          if (academicExperience.certificate)
+            await academicExperience.certificate.getUrl();
+        }
+
+        if (academicLevel) await academicExperience.load('academicLevel');
+
+        if (institution) await academicExperience.load('institution');
       }
     }
 
@@ -53,7 +61,9 @@ export default class AcademicExperiencesController {
     const user = auth.user!;
     await user.load('resume');
 
-    const certificates = !!Number(request.qs().certificates);
+    const certificate = !!Number(request.qs().certificate);
+    const academicLevel = !!Number(request.qs().academic_level);
+    const institution = !!Number(request.qs().institution);
 
     const academicExperience = await AcademicExperience.find(id);
 
@@ -71,12 +81,16 @@ export default class AcademicExperiencesController {
         ],
       });
 
-    if (certificates) {
+    if (certificate) {
       await academicExperience.load('certificate');
 
       if (academicExperience.certificate)
         await academicExperience.certificate.getUrl();
     }
+
+    if (academicLevel) await academicExperience.load('academicLevel');
+
+    if (institution) await academicExperience.load('institution');
 
     return response.ok({ academic_experience: academicExperience });
   }

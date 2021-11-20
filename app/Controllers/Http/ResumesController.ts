@@ -16,13 +16,18 @@ export default class ResumesController {
     );
     const academicExperiences = !!Number(request.qs().academic_experiences);
     const certificates = !!Number(request.qs().certificates);
+    const academicLevel = !!Number(request.qs().academic_level);
+    const institution = !!Number(request.qs().institution);
 
     if (county) {
       await resume.load('county', (query) => {
         if (state) query.preload('state');
       });
     }
-    if (professionalExperiences) await resume.load('professionalExperiences');
+    if (professionalExperiences)
+      await resume.load('professionalExperiences', (query) =>
+        query.preload('occupation')
+      );
     if (academicExperiences) {
       await resume.load('academicExperiences', async (query) => {
         if (certificates) await query.preload('certificate');
@@ -31,6 +36,10 @@ export default class ResumesController {
       for (const academicExperience of resume.academicExperiences) {
         if (academicExperience.certificate)
           await academicExperience.certificate.getUrl();
+
+        if (academicLevel) await academicExperience.load('academicLevel');
+
+        if (institution) await academicExperience.load('institution');
       }
     }
 
