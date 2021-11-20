@@ -126,18 +126,6 @@ Route.group(() => {
   }).prefix('/companies');
 
   Route.group(() => {
-    Route.get('/', 'JobsController.index');
-    Route.get('/:id', 'JobsController.show').where('id', matcherId);
-    Route.post('/', 'JobsController.store').middleware('bodyNotEmpty');
-    Route.put('/:id', 'JobsController.update')
-      .middleware('bodyNotEmpty')
-      .where('id', matcherId);
-    Route.delete('/:id', 'JobsController.destroy').where('id', matcherId);
-  })
-    .prefix('/jobs')
-    .where('id', matcherId);
-
-  Route.group(() => {
     Route.get('/', 'OccupationsController.index');
     Route.get('/:id', 'OccupationsController.show').where('id', matcherId);
   }).prefix('/occupations');
