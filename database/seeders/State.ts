@@ -7,7 +7,6 @@ import states from '../json/states.json';
 export default class StateSeeder extends BaseSeeder {
   public async run() {
     await State.truncate(true);
-
     await State.createMany(states);
   }
 }
