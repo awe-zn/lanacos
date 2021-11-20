@@ -19,5 +19,5 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/ubuntu/repositories/lanacos/resources/views/
+      device: ./resources/views/
       o: bind
