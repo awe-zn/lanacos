@@ -11,9 +11,7 @@ export default class Subscriptions extends BaseSchema {
         .integer('resume_id')
         .notNullable()
         .references('id')
-        .inTable('resumes')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+        .inTable('resumes');
       table.timestamps(true, true);
     });
   }

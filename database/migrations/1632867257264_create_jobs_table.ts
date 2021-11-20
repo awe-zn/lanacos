@@ -11,9 +11,7 @@ export default class Jobs extends BaseSchema {
         .integer('company_id')
         .notNullable()
         .references('id')
-        .inTable('companies')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+        .inTable('companies');
       table.timestamps(true, true);
     });
   }

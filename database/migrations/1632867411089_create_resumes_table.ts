@@ -6,20 +6,12 @@ export default class Resumes extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
-      table
-        .integer('user_id')
-        .notNullable()
-        .references('id')
-        .inTable('users')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+      table.integer('user_id').notNullable().references('id').inTable('users');
       table
         .integer('county_id')
-        .nullable()
+        .notNullable()
         .references('id')
-        .inTable('counties')
-        .onDelete('SET NULL')
-        .onUpdate('CASCADE');
+        .inTable('counties');
       table.string('district', 64).notNullable();
       table.string('cpf', 11).notNullable();
       table.string('autobiography').notNullable();
