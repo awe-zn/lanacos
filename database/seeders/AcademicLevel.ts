@@ -9,19 +9,34 @@ export default class AcademicLevelSeeder extends BaseSeeder {
 
     await AcademicLevel.createMany([
       {
-        name: 'Ensino Fundamental',
+        name: 'Ensino Fundamental Incompleto',
       },
       {
-        name: 'Ensino Médio',
+        name: 'Ensino Fundamental Completo',
       },
       {
-        name: 'Ensino Superior',
+        name: 'Ensino Médio Incompleto',
       },
       {
-        name: 'Mestrado',
+        name: 'Ensino Médio Completo',
       },
       {
-        name: 'Doutorado',
+        name: 'Ensino Superior Incompleto',
+      },
+      {
+        name: 'Ensino Superior Completo',
+      },
+      {
+        name: 'Mestrado Incompleto',
+      },
+      {
+        name: 'Mestrado Completo',
+      },
+      {
+        name: 'Doutorado Incompleto',
+      },
+      {
+        name: 'Doutorado Completo',
       },
     ]);
   }
