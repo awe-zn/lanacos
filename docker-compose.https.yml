@@ -9,7 +9,7 @@ services:
     volumes:
       - .docker/production/nginx/conf.d/:/etc/nginx/conf.d/
       - .docker/certbot/www:/var/www/certbot/
-      - .docker/certbot/conf/:/etc/nginx/ssl/
+      - .docker/certbot/conf/:/etc/letsencrypt/
     depends_on:
       - app
     networks:
