@@ -10,8 +10,10 @@ export default class CountiesController {
 
     const counties = await County.query().paginate(page, limit);
 
-    for (const county of counties) {
-      if (state) await county.load('state');
+    if (state) {
+      counties.forEach(async (county) => {
+        await county.load('state');
+      });
     }
 
     return response.ok({ counties });
